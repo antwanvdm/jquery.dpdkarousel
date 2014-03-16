@@ -1,0 +1,124 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.slider {
+    position: relative;
+}
+
+.slides {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    height: 100%;
+}
+
+.slides li {
+    height: 100%;
+    width: 100%;
+    margin-left: 100%;
+    position: absolute;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.slides li:first-child {
+    margin-left: 0;
+}
+
+.slides li:nth-child(1) {
+    background-image: url("http://lorempixel.com/1600/800/sports/1");
+}
+
+.slides li:nth-child(2) {
+    background-image: url("http://lorempixel.com/1600/800/sports/2");
+}
+
+.slides li:nth-child(3) {
+    background-image: url("http://lorempixel.com/1600/800/sports/3");
+}
+
+.slides li:nth-child(4) {
+    background-image: url("http://lorempixel.com/1600/800/sports/4");
+}
+
+.slides li:nth-child(5) {
+    background-image: url("http://lorempixel.com/1600/800/sports/5");
+}
+
+.slides li span {
+    display: block;
+    position: absolute;
+    opacity: 0;
+    left: -100px;
+    top: 10px;
+    color: #FF0000;
+    font-size: 40px;
+    transition: left 0.5s, opacity 0.5s;
+}
+
+.slides li.active span {
+    opacity: 1;
+    left: 10px;
+}
+
+.pager {
+    position: absolute;
+    right: 10px;
+    bottom: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.pager li {
+    float: left;
+    font-size: 30px;
+    width: 16px;
+    height: 16px;
+    display: block;
+    background-color: #FFFFFF;
+    margin: 0 5px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.pager li.active,
+.pager li:hover {
+    background-color: #FF0000;
+}
+
+.navigation {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}
+
+.navigation .nav-item {
+    float: left;
+    font-size: 30px;
+    margin: 0 5px;
+    cursor: pointer;
+    color: #FFFFFF;
+}
+
+.navigation .nav-item:hover {
+    color: #FF0000;
+}
+
+.progress-bar {
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+}
+
+.progress-bar .front {
+    background-color: #FF0000;
+    height: 2px;
+}
+
+.progress-bar .back {
+    background-color: #FFFFFF;
+    height: 2px;
+}

@@ -7,6 +7,10 @@
  * @todo Create object for methods etc.
  */
 (function ($) {
+    if (!$.fn.transition) {
+        $.fn.transition = $.fn.animate;
+    }
+
     //Default settings object
     var settings = {
         widthIsFluid: true,
@@ -16,7 +20,7 @@
         heightIsPercentage: false,
         timer: true,
         delay: 10000,
-        animateEl: 'li',
+        animateEl: 'li.slide',
         touchEnabled: false,
         onHoverStop: true,
         animationDuration: 700,
@@ -303,6 +307,7 @@
          */
         navigateToIndex: function (e) {
             this.apiActiveSlide = $(e.currentTarget).data("index");
+            this.timer.reset();
             this.animateSlides("next");
         },
 
@@ -418,19 +423,23 @@
     /**
      * Class used for start/pause logic
      *
+     * @param $el
      * @param callback
      * @param delay
      * @constructor
      */
     function RecurringTimer($el, callback, delay) {
-        var timerId, start, remaining = delay;
+        var timerId = 0, start, remaining = delay;
 
         this.reset = function () {
             if ($el.settings.timer == false) {
                 return;
             }
 
+            window.clearTimeout(timerId);
+            timerId = 0;
             remaining = delay;
+            this.resume();
         };
 
         this.pause = function () {
@@ -439,25 +448,26 @@
             }
 
             window.clearTimeout(timerId);
+            timerId = 0;
             remaining -= new Date() - start;
             $el.trigger("pauseTimer");
         };
 
-        var resume = function () {
-            if ($el.settings.timer == false) {
+        this.resume = function () {
+            if ($el.settings.timer == false || timerId > 0) {
                 return;
             }
 
             start = new Date();
-            timerId = window.setTimeout(function () {
+            timerId = window.setTimeout(_.bind(function () {
                 remaining = delay;
-                resume();
+                timerId = 0;
+                this.resume();
                 callback();
-            }, remaining);
+            }, this), remaining);
             $el.trigger("resumeTimer", remaining);
         };
 
-        this.resume = resume;
         if ($el.settings.timer == false) {
             return;
         }
@@ -475,7 +485,7 @@
      *          :heightIsPercentage Default: false        Set to true if the height is a percentage of the window and should be resized
      *          :timer              Default: true         If true, slider will auto animate after delay time
      *          :delay              Default: 10000        Total milliseconds between transition (only if timer is set to true)
-     *          :animateEl          Default: 'li'         HTML children selector to animate
+     *          :animateEl          Default: 'li.slide'   HTML children selector to animate
      *          :touchEnabled       Default: false        Enabled touch for touch devices to swipe to next/prev slide
      *          :onHoverStop        Default: true         Stop animating on hover (pause transition)
      *          :animationDuration  Default: 700          Duration in milliseconds for transitions
