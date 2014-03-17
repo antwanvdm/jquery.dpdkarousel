@@ -5,7 +5,7 @@ This plugin is a custom carousel build from the ground up. We use it at dpdk to 
 flexibility within our requirements. This project will be updated through our projects when
 we need to extend the current functionality.
 
-Withing the example folder you can see the possibilities of the slider. You can make extend
+Within the example folder you can see & test the possibilities of the slider. You can extend
 the look and feel by using CSS3 animations on active class changing.
 
 ##Current plugin options
